@@ -1,0 +1,19 @@
+{
+    "name": "KYMF",
+    "version": "1.0.0",
+    "description": "",
+    "main": "service.js",
+    "scripts": {
+      "start": "node service.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "compression": "^1.7.4",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "puppeteer": "^1.20.0-mf"
+    }
+  }
+  

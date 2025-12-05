@@ -1,0 +1,26 @@
+@media print {
+    :global {
+        #appContainer {
+            .action .ant-table-column-sort, .ant-table-filter-trigger-container, .svgIcon {
+                display: none;
+            }
+            .ant-select-selection-item {
+                padding-right: 0;
+            }
+        }
+        #content {
+            background-color: #fff;
+        }
+        .print {
+            overflow: auto !important;
+            position: static !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            height: auto!important;
+        }
+        .noprint {
+            display: none !important;
+        }
+    }
+}
