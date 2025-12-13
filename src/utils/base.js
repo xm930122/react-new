@@ -1,5 +1,14 @@
 import _, { unescape } from 'lodash';
 
+// 数据类型的判断
+export function getType(obj) {
+    let type = typeof obj;
+    if (type !== "object") { // 基础数据类型，直接返回（null除外）
+        return type;
+    }
+    return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1');
+}
+
 export function ToFloatFixed(num, pos = 2) {
     let s = '';
     if ((num || num === 0) && !isNaN(num)) {
