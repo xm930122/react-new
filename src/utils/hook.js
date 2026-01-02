@@ -44,10 +44,22 @@ export const useCallbackState = (state) => {
     }]
 }
 
+export function useAsyncEffect(effect, dependencies) {
+    return useEffect(() => {
+        let canceled = false;
+        effect(() => canceled);
+        return () => {
+            canceled = true;
+        }
+
+    }, dependencies)
+
+}
+
 /**
  * useEffect支持async/await
 */
-export function useAsyncEffect(effect, deps) {
+export function useAsyncEffectNew(effect, deps) {
     // 判断是AsyncGenerator
     function isAsyncGenerator(val) {
         // Symbol.asyncIterator符号指定了一个对象的默认异步迭代器。如果一个对象设置了这个属性，它就是异步可迭代对象，可用于for await...of循环
