@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { useEffect, useRef, useState } from 'react';
-import { isEqual } from 'lodash';
+import { isEqual, isFunction } from 'lodash';
 
 // 用于更新阶段场景
 export const uesUpdateEffect = (callback, dependencies) => {
@@ -42,4 +42,38 @@ export const useCallbackState = (state) => {
         callbackRef.current = callback;
         setData(val);
     }]
+}
+
+/**
+ * useEffect支持async/await
+*/
+export function useAsyncEffect(effect, deps) {
+    // 判断是AsyncGenerator
+    function isAsyncGenerator(val) {
+        // Symbol.asyncIterator符号指定了一个对象的默认异步迭代器。如果一个对象设置了这个属性，它就是异步可迭代对象，可用于for await...of循环
+        return isFunction(val[Symbol.asyncIterator]);
+    }
+    useEffect(() => {
+        const e = effect();
+        // 这个标识可以通过yiedl语句增加一些检查点
+        // 如果发现当前effect已经被清理，会停止继续往下执行
+        let cancelled = false;
+        async function execute() {
+            if (isAsyncGenerator(e)) {
+                while (true) {
+                    const result = await e.next();
+                    if (result.done || cancelled) {
+                        break;
+                    }
+                }
+            } else {
+                await e;
+            }
+        }
+        execute();
+        return () => {
+            // 当前effect已经被清理
+            cancelled = true;
+        }
+    }, deps)
 }
