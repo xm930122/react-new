@@ -44,6 +44,27 @@ export const useCallbackState = (state) => {
     }]
 }
 
+// 延迟一定时间执行callback
+export function useTimeout(callback, delay) {
+    const memorizedCallback = useRef(null);
+
+    useEffect(() => {
+        memorizedCallback.current = callback;
+    }, [callback])
+
+    useEffect(() => {
+        if (delay !== null) {
+            const timer = setTimeout(() => {
+                memorizedCallback.current();
+            }, delay);
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+
+    }, [delay]);
+}
+
 export function useAsyncEffect(effect, dependencies) {
     return useEffect(() => {
         let canceled = false;
