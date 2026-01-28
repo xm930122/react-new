@@ -1,4 +1,4 @@
-import { ref, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function useWebSocket(url, options = {}) {
   const {
