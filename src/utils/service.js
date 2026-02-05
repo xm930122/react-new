@@ -79,7 +79,7 @@ const request = (url = '', options = {}) => {
     let headers = {
         Accept: 'application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/*,*/*;q=0.8',
         Authorization: JWT ? `Bear ${JWT}` : '',
-        cookie: getCookie,
+        // cookie: getCookie,
         ...config.headers,
         'Accept-Language': 'zh-CN'
     };

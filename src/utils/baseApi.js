@@ -2,7 +2,7 @@
 export const polyfillPromiseAllsettled = (promisesArray) => {
     return Promise.all(
         promisesArray.map(
-            it => Promise.resolve(it).then(
+            p => Promise.resolve(p).then(
                 (val) => ({status: 'fulfilled', val}),
                 (err) => ({status: 'rejected', err}),
             )
