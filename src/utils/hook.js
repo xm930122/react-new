@@ -67,12 +67,12 @@ export function useTimeout(callback, delay) {
 
 export function useAsyncEffect(effect, dependencies) {
     return useEffect(() => {
-        let canceled = false;
-        effect(() => canceled);
+        const cleanupPromise = effect();
         return () => {
-            canceled = true;
+            cleanupPromise.then(cleanup => {
+                cleanup && cleanup();
+            })
         }
-
     }, dependencies)
 
 }

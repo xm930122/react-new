@@ -46,3 +46,21 @@ export const isValid = function (s) {
   return !stack.length
 }
 console.log(isValid("){"))
+
+function isValidNew(str) {
+  const map = {
+    '{': '}',
+    '[': ']',
+    '(': ')',
+  }
+  const stack = [];
+  for(let i = 0, len = str.length; i < len; i++) {
+    // 如果是左边括号，入栈
+    if (map[str[i]]) {
+      stack.push(str[i])
+    } else if (str[i] !== map[stack.pop()]) {
+      return false;
+    }
+    return stack.length === 0;
+  }
+}

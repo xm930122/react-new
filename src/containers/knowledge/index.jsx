@@ -7,7 +7,6 @@ import React, { useRef, useLayoutEffect } from 'react';
 import { loadMicroApp } from 'qiankun';
 import { setDocTitle } from 'utils';
 import Loading from 'components/loading';
-import 'componets/table/style.less';
 import styles from './index.less';
 
 export default () => {

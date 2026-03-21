@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js实现虚拟滚动</title>
+</head>
+<style>
+    /* 容器样式 */
+    #scroll-container {
+        height: 500px;
+        /* 可视区域高度 */
+        width: 300px;
+        border: 1px solid #ccc;
+        overflow-y: auto;
+        /* 开启垂直滚动 */
+        position: relative;
+        /* 为内部绝对定位元素提供参考 */
+        margin: 20px auto;
+    }
+
+    /* 列表项样式 */
+    .list-item {
+        height: 50px;
+        /* 固定行高 */
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        border-bottom: 1px solid #eee;
+        box-sizing: border-box;
+        background: #fff;
+    }
+</style>
+
+<body>
+    <div id="scroll-container"></div>
+    <script src="./virtualScroll.js"></script>
+    <script>
+        // 使用示例
+        // 1. 模拟 10万条 数据
+        const data = Array.from({ length: 100000 }, (_, i) => ({
+            id: i,
+            text: `这是第 ${i + 1} 条数据`
+        }));
+        // 2. 获取容器
+        const container = document.getElementById('scroll-container');
+        // 3. 实例化虚拟列表
+        const scroller = new VirtualScroller(container, data, (index, item) => {
+            // 渲染函数：返回一个 DOM 元素
+            const div = document.createElement('div');
+            div.className = 'list-item';
+            div.innerHTML = `<strong>${index}</strong>: ${item.text}`;
+            return div;
+        }, 50, 5); // 50 是行高
+    </script>
+</body>
+
+</html>
