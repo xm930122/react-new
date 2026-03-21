@@ -45,14 +45,15 @@
         }));
         // 2. 获取容器
         const container = document.getElementById('scroll-container');
-        // 3. 实例化虚拟列表
-        const scroller = new VirtualScroller(container, data, (index, item) => {
+        const rowRender = (index, item) => {
             // 渲染函数：返回一个 DOM 元素
             const div = document.createElement('div');
             div.className = 'list-item';
             div.innerHTML = `<strong>${index}</strong>: ${item.text}`;
             return div;
-        }, 50, 5); // 50 是行高
+        }
+        // 3. 实例化虚拟列表
+        const scroller = new VirtualScroller(container, data, rowRender, 50, 5); // 50 是行高
     </script>
 </body>
 
